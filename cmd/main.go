@@ -14,16 +14,13 @@ func main() {
 		log.Fatal(err)
 	}
 	go writeTests(p)
-	reader := bufio.NewReader(p)
-
-	go func() {
-		fmt.Println("start reading using a channel")
-		for v := range p.Listen('\n') {
-			if err == nil {
-				fmt.Print("value from channel:" + string(v))
-			}
+	for v := range p.Listen('\n') {
+		if err == nil {
+			fmt.Print("value from channel:" + string(v))
 		}
-	}()
+	}
+
+	reader := bufio.NewReader(p)
 
 	fmt.Println("start reading using a file")
 	for {
