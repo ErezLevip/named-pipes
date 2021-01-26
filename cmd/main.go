@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"github.com/erezlevip/named-pipes/pkg"
 	"log"
@@ -15,19 +14,7 @@ func main() {
 	}
 	go writeTests(p)
 	for v := range p.Listen('\n') {
-		if err == nil {
-			fmt.Print("value from channel:" + string(v))
-		}
-	}
-
-	reader := bufio.NewReader(p)
-
-	fmt.Println("start reading using a file")
-	for {
-		line, err := reader.ReadBytes('\n')
-		if err == nil {
-			fmt.Print("value from file:" + string(line))
-		}
+		fmt.Print("value from channel:" + string(v))
 	}
 }
 
